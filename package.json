@@ -16,7 +16,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "commander": "^6.2.0"
+    "commander": "^6.2.0",
+    "ora": "^5.1.0",
+    "pjson": "^1.0.9",
+    "prompts": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^14.0.27",
