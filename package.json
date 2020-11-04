@@ -1,0 +1,35 @@
+{
+  "name": "numer0n-cli",
+  "version": "0.0.1",
+  "description": "Numer0n on the cli",
+  "main": "./lib/index.js",
+  "scripts": {
+    "start": "tsc -w",
+    "prebuild": "rimraf lib",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "ivgtr <gear.1112t.o@gmail.com> (https://github.com/ivgtr)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:ivgtr/twcl.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "eslint": "^7.5.0",
+    "eslint-config-metamo": "^0.2.10",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint ./src/**/*.ts"
+    }
+  }
+}
