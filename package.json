@@ -7,7 +7,8 @@
     "start": "tsc -w",
     "prebuild": "rimraf lib",
     "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "lint": "eslint ./src/**/*.ts"
   },
   "author": "ivgtr <gear.1112t.o@gmail.com> (https://github.com/ivgtr)",
   "repository": {
