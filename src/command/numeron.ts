@@ -30,7 +30,8 @@ const checkAnswer = async (
   return { eat, bite }
 }
 
-const inputAnswer = async (): Promise<string> => {
+const inputAnswer = async (difficulty: difficulty): Promise<string> => {
+  const length = difficulty > 1 ? 4 : 3
   const onCancel = () => {
     throw new Error('入力がありませんでした')
   }
@@ -40,7 +41,15 @@ const inputAnswer = async (): Promise<string> => {
         type: 'text',
         name: 'userAnswer',
         message: '数字を入力してください',
-        validate: (value) => (!value ? '何か入力してください' : true)
+        validate: (value) => {
+          if (value.length === length) {
+            return true
+          }
+          if (!value) {
+            return '何か入力してください'
+          }
+          return `${colors.red(length)}${colors.red('文字')}で入力してください`
+        }
       }
     ],
     { onCancel }
@@ -49,11 +58,15 @@ const inputAnswer = async (): Promise<string> => {
   return userAnswer
 }
 
-const startGame = async (answer: string, challenges = 0): Promise<boolean> => {
+const startGame = async (
+  answer: string,
+  difficulty: difficulty,
+  challenges = 0
+): Promise<boolean> => {
   const challengesNum = challenges + 1
   console.log(`${colors.red(challengesNum)}${colors.red('回目')}の挑戦`)
   try {
-    const userAnswer = await inputAnswer()
+    const userAnswer = await inputAnswer(difficulty)
     if (userAnswer === answer) {
       return true
     }
@@ -66,7 +79,7 @@ const startGame = async (answer: string, challenges = 0): Promise<boolean> => {
   } catch (err) {
     throw new Error(err.message)
   }
-  return startGame(answer, challengesNum)
+  return startGame(answer, difficulty, challengesNum)
 }
 
 const createAnswer = async (difficult: number): Promise<string> => {
@@ -91,15 +104,15 @@ const createAnswer = async (difficult: number): Promise<string> => {
 const selecteDifficulty = async (): Promise<difficulty> => {
   const difficultyList = [
     {
-      title: 'Easy(3桁、被りなし)',
+      title: 'Easy   (3桁、被りなし)',
       value: 1
     },
     {
-      title: 'Normal(4桁、被りなし) ',
+      title: 'Normal (4桁、被りなし) ',
       value: 2
     },
     {
-      title: 'Hard(4桁、被りあり)',
+      title: 'Hard   (4桁、被りあり)',
       value: 3
     }
   ]
@@ -130,8 +143,8 @@ const numeron = async (): Promise<void> => {
     const answer = await createAnswer(difficulty)
     await spinner.succeed('準備完了!')
 
-    if (await startGame(answer)) {
-      console.log('正解です')
+    if (await startGame(answer, difficulty)) {
+      console.log(`${colors.green('✔︎')}正解です`)
     }
   } catch (err) {
     console.error(`${colors.red('✖')} ${err.message}`)
