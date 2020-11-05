@@ -4,9 +4,13 @@ import pjson from 'pjson'
 import { numeron } from './command/controller'
 
 const main = async (): Promise<void> => {
-  program.option('-s, --start', 'ゲーム開始。').action(() => {
-    numeron()
-  })
+  program
+    .command('start')
+    .alias('s')
+    .description('ゲーム開始')
+    .action(() => {
+      numeron()
+    })
 
   program
     .version(pjson.version, '-v, --version', 'バージョンを確認')
