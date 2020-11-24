@@ -3,7 +3,7 @@
 
 #### これは何?  
 cli上でNumer0nができます  
-[Numer0nとは](https://ja.wikipedia.org/wiki/Numer0n)
+Numer0nの基本ルール→[参考リンク](https://scrapbox.io/iVgtr/Numer0n)
 
 ## セットアップ  
 ```
